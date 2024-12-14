@@ -8,6 +8,7 @@ body{
 .container{
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
   justify-content: flex-start;
   text-align: left;
   padding: 150px;
