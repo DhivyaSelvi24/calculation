@@ -2,13 +2,16 @@
 body{
   background-color: #91bab3;
   display: block;
+  display: block;
   justify-content: center;
   align-items: center;
   padding: 200px;
 }
 .container{
   display: block;
+  display: block;
   align-items: flex-start;
+  flex-direction: column;
   flex-direction: column;
   justify-content: flex-start;
   text-align: left;
@@ -43,6 +46,7 @@ body{
   
 }
 input{
+margin-top: 150px;
 margin-top: 150px;
 width: 100px;
 background-color:burlywood;

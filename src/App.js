@@ -52,6 +52,7 @@ settotal(totalamnt);
 
   return (
    
+   
     <div className="container">
       <div className='row' >
   <div className='column1'>Category</div>
