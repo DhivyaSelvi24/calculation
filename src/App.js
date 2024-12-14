@@ -33,7 +33,7 @@ function App() {
   return (
    
     <div className="container">
-      <div className='row'>
+      <div className='row' >
   <div className='column'>Category</div>
   <div className='column'>Toggle</div>
   <div className='column'>Amount</div>
@@ -52,7 +52,7 @@ function App() {
              // Update category
             />
           </div>
-          <div className="column">
+          <div className="column" style={{margin:"150px"}}>
             
             <FormControlLabel
               control={
@@ -77,7 +77,7 @@ function App() {
               // Update amount
             />
           </div>
-          <div className="column">
+          <div className="column" style={{margin:"150px"}}>
             {index==0?(
             <div className="action-buttons">
               <IconButton color="primary" onClick={handleChange}>
