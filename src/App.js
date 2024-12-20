@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Switch, FormControlLabel, IconButton, Container, Grid, TextField,Box,boxClasses,Typography, Card, CardContent } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './Components/Dashboard';
@@ -10,6 +11,11 @@ function App() {
 
 
   
+=======
+import Dashboard from './Components/Dashboard';
+
+function App() {
+>>>>>>> 50ba428441d44c9a5a7c6fd0d203f1b30eb1d8c2
   const [row, setRow] = useState([{ category: "", Toggle: false, Amount: "" }]);
   const [total, settotal] = useState(0);
 
@@ -48,6 +54,7 @@ function App() {
 
   return (
 
+<<<<<<< HEAD
     
     <Container maxWidth="sm" sx={{ marginTop:5}}>
       
@@ -55,6 +62,9 @@ function App() {
       <Routes>
         <Route path="/dashboard" element={<Dashboard/>}/>
       </Routes>
+=======
+    <Container maxWidth="sm" sx={{ marginTop:5}}>
+>>>>>>> 50ba428441d44c9a5a7c6fd0d203f1b30eb1d8c2
       <Typography variant="h4" align="center" gutterBottom>
         Expense Tracker
       </Typography>
@@ -149,5 +159,9 @@ function App() {
   );
   
 }
+<<<<<<< HEAD
 
+=======
+<Dashboard/>
+>>>>>>> 50ba428441d44c9a5a7c6fd0d203f1b30eb1d8c2
 export default App;
