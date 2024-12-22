@@ -1,22 +1,14 @@
 import logo from './logo.svg';
 import React, { useEffect, useState } from 'react';
-import { Switch, FormControlLabel, IconButton, Container, Grid, TextField,Box,boxClasses,Typography, Card, CardContent } from '@mui/material';
+import { Switch, FormControlLabel, FormLabel,IconButton, Container, Grid, TextField,Box,boxClasses,Typography, Card, CardContent } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-<<<<<<< HEAD
-import { Link } from 'react-router-dom';
-import { Routes, Route } from 'react-router-dom';
-import Dashboard from './Components/Dashboard';
+
 function App() {
 
 
   
-=======
-import Dashboard from './Components/Dashboard';
-
-function App() {
->>>>>>> 50ba428441d44c9a5a7c6fd0d203f1b30eb1d8c2
-  const [row, setRow] = useState([{ category: "", Toggle: false, Amount: "" }]);
+  const [row, setRow] = useState([{ category: "", Toggle: true, Amount: "" }]);
   const [total, settotal] = useState(0);
 
   useEffect(() => {
@@ -34,7 +26,7 @@ function App() {
   }, [row]);
 
   function handleChange() {
-    setRow([...row, { category: "", Toggle: false, Amount: "" }]);
+    setRow([...row, { category: "", Toggle: true, Amount: "" }]);
   }
 
   function handleinput(e, index) {
@@ -54,21 +46,14 @@ function App() {
 
   return (
 
-<<<<<<< HEAD
     
-    <Container maxWidth="sm" sx={{ marginTop:5}}>
+    <Container maxWidth="xs" sx={{ marginTop:5}}>
       
-      <Link to="/dashboard">Go To Dashboard</Link>
-      <Routes>
-        <Route path="/dashboard" element={<Dashboard/>}/>
-      </Routes>
-=======
-    <Container maxWidth="sm" sx={{ marginTop:5}}>
->>>>>>> 50ba428441d44c9a5a7c6fd0d203f1b30eb1d8c2
+     
       <Typography variant="h4" align="center" gutterBottom>
         Expense Tracker
       </Typography>
-      <Grid container spacing={2} sx={{ marginBottom: 2}}>
+      <Grid container spacing={6} sx={{ marginBottom: 2}}>
         <Grid item xs={4}>
           <Typography variant="h6" className="column-header">
             Category
@@ -92,7 +77,7 @@ function App() {
       </Grid>
 
       {row.map((e, index) => (
-        <Grid container spacing={2} key={index} alignItems="center" marginBottom={3}>
+        <Grid container spacing={3} key={index} alignItems="center" marginBottom={3}>
           <Grid item xs={4}>
             <TextField
               id="category"
@@ -113,10 +98,12 @@ function App() {
                   checked={e.Toggle}
                   value={e.Toggle}
                   onClick={(e) => handleinput(e, index)}
+                
                 />
+                
               }
               sx={{ marginLeft: 1 }}
-            />
+           />
           </Grid>
           <Grid item xs={3}>
             <TextField
@@ -129,21 +116,26 @@ function App() {
               onChange={(e) => handleinput(e, index)}
               fullWidth
               size="small"
+              sx={{ width: '100px' }}
             />
           </Grid>
           <Grid item xs={2}>
             <div className="action-buttons">
               {index === 0 ? (
                 <IconButton color="primary" onClick={handleChange}>
-                  <AddIcon />
+                  <AddIcon sx={{ marginLeft: 3 }}/>
                 </IconButton>
               ) : (
                 <IconButton color="secondary" onClick={() => handleremove(index)}>
-                  <RemoveIcon />
+                  <RemoveIcon sx={{ marginLeft: 3 }}/>
                 </IconButton>
+                
               )}
+              
             </div>
+            
           </Grid>
+          
         </Grid>
       ))}
 
@@ -159,9 +151,4 @@ function App() {
   );
   
 }
-<<<<<<< HEAD
-
-=======
-<Dashboard/>
->>>>>>> 50ba428441d44c9a5a7c6fd0d203f1b30eb1d8c2
 export default App;
