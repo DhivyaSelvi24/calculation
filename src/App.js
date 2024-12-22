@@ -48,8 +48,8 @@ function App() {
       <Typography variant="h4" align="center" gutterBottom>
         Expense Tracker
       </Typography>
-      <Grid container spacing={4} sx={{ marginBottom: 2}}>
-        <Grid item xs={3}>
+      <Grid container spacing={2} sx={{ marginBottom: 2}}>
+        <Grid item xs={4}>
           <Typography variant="h6" className="column-header">
             Category
           </Typography>
@@ -64,7 +64,7 @@ function App() {
             Amount
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
           <Typography variant="h6" className="column-header">
             Action
           </Typography>
@@ -72,8 +72,8 @@ function App() {
       </Grid>
 
       {row.map((e, index) => (
-        <Grid container spacing={5} key={index} alignItems="center" marginBottom={3}>
-          <Grid item xs={3}>
+        <Grid container spacing={2} key={index} alignItems="center" marginBottom={3}>
+          <Grid item xs={4}>
             <TextField
               id="category"
               label="Category"
@@ -111,7 +111,7 @@ function App() {
               size="small"
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <div className="action-buttons">
               {index === 0 ? (
                 <IconButton color="primary" onClick={handleChange}>
