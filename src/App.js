@@ -21,12 +21,19 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 
 function App() {
-  const [row, setRow] = useState([{ category: "", Toggle: true, Amount: "" }]);
+  const [row, setRow] = useState(() => {
+    const savedRows = localStorage.getItem("expenseRows");
+    return savedRows ? JSON.parse(savedRows) : [{ category: "", Toggle: true, Amount: "" }];
+  });
   const [total, setTotal] = useState(0);
-  const [darkMode, setDarkMode] = useState(false); // State to toggle dark mode
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    return savedMode ? JSON.parse(savedMode) : false;
+  });
 
-  // Update total when rows change
+  // Save rows to local storage whenever they change
   useEffect(() => {
+    localStorage.setItem("expenseRows", JSON.stringify(row));
     let totalAmount = 0;
     for (let i = 0; i < row.length; i++) {
       if (row[i].Amount !== "") {
@@ -39,6 +46,11 @@ function App() {
     }
     setTotal(totalAmount);
   }, [row]);
+
+  // Save dark mode preference to local storage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
 
   function handleChange() {
     setRow([...row, { category: "", Toggle: true, Amount: "" }]);
@@ -65,7 +77,6 @@ function App() {
     }
   }
 
-
   // Define light and dark themes
   const theme = createTheme({
     palette: {
@@ -74,21 +85,27 @@ function App() {
   });
 
   return (
-    
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container maxWidth="xs" sx={{ marginTop: 5 }}>
-      <FormControl variant="filled"  sx={{marginBottom:6,width:"10em"}}>
-
-<InputLabel id="theme">Mode</InputLabel>
-<Select  labelId="select-label" value={darkMode ? "dark":"light"} onChange={(e)=>{const selecteddropdown=e.target.value; if(selecteddropdown=="dark" && !darkMode){ setDarkMode(true)}else{setDarkMode(false)}}}>
-<MenuItem value="light">Light</MenuItem>
-<MenuItem value="dark">Dark</MenuItem>
-
-
-</Select>
-</FormControl>
- 
+        <FormControl variant="filled" sx={{ marginBottom: 6, width: "10em" }}>
+          <InputLabel id="theme">Mode</InputLabel>
+          <Select
+            labelId="select-label"
+            value={darkMode ? "dark" : "light"}
+            onChange={(e) => {
+              const selectedDropdown = e.target.value;
+              if (selectedDropdown === "dark" && !darkMode) {
+                setDarkMode(true);
+              } else {
+                setDarkMode(false);
+              }
+            }}
+          >
+            <MenuItem value="light">Light</MenuItem>
+            <MenuItem value="dark">Dark</MenuItem>
+          </Select>
+        </FormControl>
 
         <Typography variant="h4" align="center" gutterBottom>
           Expense Tracker
@@ -180,11 +197,6 @@ function App() {
             </Typography>
           </CardContent>
         </Card>
-        {/* <Button type="button" variant="contained" onClick={handleThemeToggle} sx={{backgroundColor:darkMode?"primary.dark" :"primary.light"}}>
-          Submit
-        </Button> */}
-        
-
       </Container>
     </ThemeProvider>
   );
