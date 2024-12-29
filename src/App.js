@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   IconButton,
   Container,
   Grid,
@@ -21,10 +20,9 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 
 function App() {
-  const [row, setRow] = useState(() => {
-    const savedRows = localStorage.getItem("expenseRows");
-    return savedRows ? JSON.parse(savedRows) : [{ category: "", Toggle: true, Amount: "" }];
-  });
+  const [row, setRow] = useState(() =>
+    localStorage.getItem("expenseRows") ? JSON.parse(localStorage.getItem("expenseRows")) : [{ category: "", Toggle: true, Amount: "" }]
+  );
   const [total, setTotal] = useState(0);
   const [darkMode, setDarkMode] = useState(() => {
     const savedMode = localStorage.getItem("darkMode");
@@ -33,6 +31,7 @@ function App() {
 
   // Save rows to local storage whenever they change
   useEffect(() => {
+    console.log("hello")
     localStorage.setItem("expenseRows", JSON.stringify(row));
     let totalAmount = 0;
     for (let i = 0; i < row.length; i++) {
@@ -76,7 +75,7 @@ function App() {
       setRow(newRow);
     }
   }
-
+  
   // Define light and dark themes
   const theme = createTheme({
     palette: {
@@ -106,19 +105,20 @@ function App() {
             <MenuItem value="dark">Dark</MenuItem>
           </Select>
         </FormControl>
-
-        <Typography variant="h4" align="center" gutterBottom>
-          Expense Tracker
-        </Typography>
+        <Card sx={{ backgroundColor: "darkcyan" }}>
+          <Typography variant="h4" align="center" gutterBottom>
+            Expense Tracker
+          </Typography>
+        </Card>
         <Grid container spacing={6} sx={{ marginBottom: 2 }}>
           <Grid item xs={4}>
             <Typography variant="h6" className="column-header">
               Category
             </Typography>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={3} sx={{ textAlign: "center" }}>
             <Typography variant="h6" className="column-header">
-              Calc
+              +/-
             </Typography>
           </Grid>
           <Grid item xs={3}>
@@ -146,6 +146,7 @@ function App() {
                 onChange={(e) => handleInput(e, index)}
                 fullWidth
                 size="small"
+                sx={{ width: "120px" }}
               />
             </Grid>
             <Grid item xs={3}>
@@ -203,3 +204,95 @@ function App() {
 }
 
 export default App;
+
+
+
+// const sample = [
+//   {
+//     label: "UG", items: [
+//       {
+//         label: "arts",
+//         items: [
+//           {
+//             label: "BCA",
+//             items: []
+//           },
+//           {
+//             label: "Bsc",
+//             items: []
+//           },
+//           {
+//             label: "Bcom",
+//             items: []
+//           }
+//         ]
+//       },
+//       {
+//         label: "science",
+//         items: []
+//       },
+//       {
+//         label: "Maths",
+//         items: []
+//       },
+//       {
+//         label: "Bio",
+//         items: []
+//       },
+//       {
+//         label: "laws",
+//         items: []
+//       },
+//       {
+//         label: "Engineering",
+//         items: [
+//         object{
+//           label:""
+//           array:[]
+//         }
+
+//         ]
+//       }
+//     ],
+//     label: "PG", items: [
+//       {
+//         label: "arts",
+//         items: [
+//           {
+//             label: "MCA",
+//             items: []
+//           },
+//           {
+//             label: "Msc",
+//             items: []
+//           },
+//           {
+//             label: "Mcom",
+//             items: []
+//           }
+//         ]
+//       },
+//       {
+//         label: "science",
+//         items: []
+//       },
+//       {
+//         label: "Maths",
+//         items: []
+//       },
+//       {
+//         label: "Bio",
+//         items: []
+//       },
+//       {
+//         label: "laws",
+//         items: []
+//       },
+//       {
+//         label: "Engineering",
+//         items: []
+//       }
+//     ]
+
+//   }
+// ]
