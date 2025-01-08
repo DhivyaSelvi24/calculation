@@ -83,6 +83,10 @@ function App() {
   setOpen(true)
   }
 
+  function closeModal(index){
+    setOpen(false)
+  }
+
   function handleToggle(e){
     setDarkMode(!darkMode)
   }
@@ -200,10 +204,19 @@ function App() {
                   </IconButton>
                 )}
                 <Modal open={open}>
-                  <Box sx={{alignItems:"center", justifyContent:"center"}}>
+                 
+                  <Box sx={{alignItems:"center"}} >
                     <Typography>Do you want to delete it?</Typography>
+                    <Grid container spacing={2}> 
+                    <Grid item>
                   <Button variant="contained" className="primary" onClick={handleRemove}>DELETE</Button>
+                  </Grid>
+                  <Grid item>
+                  <Button variant="contained" className="secondary" onClick={()=>closeModal(index)}>Cancel</Button>
+                 </Grid>
+                  </Grid>
                   </Box>
+                  
                 </Modal>
               </div>
             </Grid>
