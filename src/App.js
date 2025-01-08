@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Button,
   IconButton,
   Container,
   Grid,
@@ -10,25 +11,23 @@ import {
   CardContent,
   Switch,
   FormControlLabel,
-  FormControl,
-  Select,
-  InputLabel,
-  MenuItem,
+  Modal
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { WbSunny } from "@mui/icons-material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
+import { NightsStay } from "@mui/icons-material";
 
+import { dark, light } from "@mui/material/styles/createPalette";
 function App() {
   const [row, setRow] = useState(() =>
     localStorage.getItem("expenseRows") ? JSON.parse(localStorage.getItem("expenseRows")) : [{ category: "", Toggle: true, Amount: "" }]
   );
   const [total, setTotal] = useState(0);
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem("darkMode");
-    return savedMode ? JSON.parse(savedMode) : false;
-  });
-
+  const [darkMode, setDarkMode] = useState(true);
+  const[open,setOpen]=useState(false);
+  const[selectedrow,setSelectedrow]=useState(null);
   // Save rows to local storage whenever they change
   useEffect(() => {
     console.log("hello")
@@ -69,16 +68,29 @@ function App() {
   }
 
   function handleRemove(index) {
-    if (row.length > 1) {
+    if (row.length > 1 && row.selectedRow!==null) {
       const newRow = [...row];
-      newRow.splice(index, 1);
+      newRow.splice(selectedrow, 1);
       setRow(newRow);
+      setSelectedrow(null);
     }
+    setOpen(false)
   }
   
+ //function to open modal
+ function openModal(index){
+  setSelectedrow(index);
+  setOpen(true)
+  }
+
+  function handleToggle(e){
+    setDarkMode(!darkMode)
+  }
+
   // Define light and dark themes
   const theme = createTheme({
     palette: {
+
       mode: darkMode ? "dark" : "light",
     },
   });
@@ -87,29 +99,30 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container maxWidth="xs" sx={{ marginTop: 5 }}>
-        <FormControl variant="filled" sx={{ marginBottom: 6, width: "10em" }}>
-          <InputLabel id="theme">Mode</InputLabel>
-          <Select
-            labelId="select-label"
-            value={darkMode ? "dark" : "light"}
-            onChange={(e) => {
-              const selectedDropdown = e.target.value;
-              if (selectedDropdown === "dark" && !darkMode) {
-                setDarkMode(true);
-              } else {
-                setDarkMode(false);
-              }
-            }}
-          >
-            <MenuItem value="light">Light</MenuItem>
-            <MenuItem value="dark">Dark</MenuItem>
-          </Select>
-        </FormControl>
+      <IconButton onClick={handleToggle} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          
+            {darkMode ? (
+              <NightsStay sx={{color:"whitesmoke"}}/>
+            ) : (
+              <WbSunny sx={{color:"#F6BE00", backgroundColor:"white"}} />
+            )}
+         
+        </IconButton>
+
+
         <Card sx={{ backgroundColor: "darkcyan" }}>
+          <Grid container alignItems="center" justifyContent="center">
+            <Grid item>
           <Typography variant="h4" align="center" gutterBottom>
             Expense Tracker
           </Typography>
+          </Grid>
+          <Grid item>
+            
+          </Grid>
+          </Grid>
         </Card>
+        
         <Grid container spacing={6} sx={{ marginBottom: 2 }}>
           <Grid item xs={4}>
             <Typography variant="h6" className="column-header">
@@ -182,10 +195,16 @@ function App() {
                     <AddIcon sx={{ marginLeft: 3 }} />
                   </IconButton>
                 ) : (
-                  <IconButton color="secondary" onClick={() => handleRemove(index)}>
+                  <IconButton color="secondary" onClick={() => openModal(index)}>
                     <RemoveIcon sx={{ marginLeft: 2.5 }} />
                   </IconButton>
                 )}
+                <Modal open={open}>
+                  <Box sx={{alignItems:"center", justifyContent:"center"}}>
+                    <Typography>Do you want to delete it?</Typography>
+                  <Button variant="contained" className="primary" onClick={handleRemove}>DELETE</Button>
+                  </Box>
+                </Modal>
               </div>
             </Grid>
           </Grid>
@@ -198,6 +217,7 @@ function App() {
             </Typography>
           </CardContent>
         </Card>
+        
       </Container>
     </ThemeProvider>
   );
